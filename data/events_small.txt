@@ -1,0 +1,2 @@
+man,dance,woman
+robot,dance,woman

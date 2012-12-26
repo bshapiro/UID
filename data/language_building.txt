@@ -1,0 +1,70 @@
+Nouns:
+ball
+apple
+flower
+hamburger
+rock
+horse
+guitar
+man
+woman
+chimp
+robot
+
+adjectives:
+blue
+red
+green
+small
+large
+
+
+Variation in color:
+ball
+apple
+flower
+
+Variation in size:
+hamburger
+rock
+
+
+Dance
+Woman, Chimp
+Man, Robot
+Man, Woman
+Robot, Woman
+
+See
+Man, guitar
+Woman, horse
+Robot, red, flower
+Woman, small, rock
+
+Throw
+Man, red, ball
+Woman, red, ball
+Man, blue, ball
+Woman, blue, ball
+
+Kick
+Chimp, guitar
+Robot, blue, ball
+Woman, large, rock
+Chimp, green, ball
+
+Eat
+Horse, red, apple
+Man, green, apple
+Woman, small, hamburger
+Chimp, large, hamburger
+
+12 languages:
+
+There are 6*2 possible languages
+
+SOV + AN, SOV + NA
+SVO + AN, SVO + NA
+VSO + AN, VSO + NA
+etc.
+

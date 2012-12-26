@@ -1,0 +1,9 @@
+man,throw,blue,ball
+man,kick,red,ball
+man,throw,red,ball
+man,kick,blue,ball
+
+robot,throw,blue,ball
+robot,kick,red,ball
+robot,throw,red,ball
+robot,kick,blue,ball
