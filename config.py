@@ -1,4 +1,4 @@
-events = "events.txt"
-artificial_events = "events_artificial.txt"
-small_events = "small_events.txt"
+events = "data/events.txt"
+artificial_events = "data/events_artificial.txt"
+small_events = "data/small_events.txt"
 
