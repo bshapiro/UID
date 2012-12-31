@@ -1,8 +1,5 @@
 from collections import Counter
-from data import generate_generic_syllable
-from data import generate_ending_syllable
 import math
-from random import randint
 
 
 class TrigramModel:
@@ -66,22 +63,6 @@ def average(items):
         sum_items += item
     average = float(sum_items) / float(len(items))
     return average
-
-
-def generate_random_word():
-    length = randint(1, 3)
-    word = ""
-    if length == 1:
-        word = generate_ending_syllable()
-    if length == 2:
-        word = generate_generic_syllable(begin=True)
-        word += generate_ending_syllable()
-    if length == 3:
-        word = generate_generic_syllable(begin=True)
-        word += generate_generic_syllable(begin=False)
-        word += generate_ending_syllable()
-    print word
-    return word
 
 
 def read_file(filename):
