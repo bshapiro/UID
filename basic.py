@@ -1,6 +1,4 @@
-from models import TrigramModel
-from models import average
-from models import read_file
+from trigram import TrigramModel
 from config import events
 
 
@@ -83,6 +81,45 @@ def estimate_language_idu(ngram, words):
     language_idu = average(sentence_idus)
     return language_idu
 
+
+def average(items):
+    sum_items = 0
+    for item in items:
+        sum_items += item
+    average = float(sum_items) / float(len(items))
+    return average
+
+
+def read_file(filename):
+    f = open(filename)
+    subjects = []
+    verbs = []
+    adjectives = []
+    objects = []
+    for line in f:
+
+        if line == '\n':
+            continue
+
+        items = line.split(',')
+
+        subject = items[0]
+        verb = items[1]
+        if len(items) > 3:
+            adjective = items[2]
+            dobject = items[3][:-1]
+        else:
+            adjective = ''
+            dobject = items[2][:-1]
+
+        subjects.append(subject)
+        verbs.append(verb)
+        adjectives.append(adjective)
+        objects.append(dobject)
+    f.close()
+    words = [subjects, verbs, adjectives, objects]
+    return words
+
 if __name__ == "__main__":
     words = read_file(events)
     orders = ["svao", "svoa", "vsao", "vsoa", "aovs", "oavs", "saov", "soav", "voas", "vaos", "aosv", "oasv"]
@@ -91,11 +128,3 @@ if __name__ == "__main__":
         ngram, language = generate_ngram(order, words)
         language_idu = estimate_language_idu(ngram, language)
         print order, " IDU rating:", str(language_idu)
-
-"""
-Questions:
-
-1) Should I be using the shannon entropy formula or just calculating probabilities? Why?
-2) For each word, are we computing its probability given ALL the words so far in the sentence? or just the last word?
-3)
-"""

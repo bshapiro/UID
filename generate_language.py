@@ -1,40 +1,16 @@
-from models import read_file
-from config import artificial_events, events
+from config import events, artificial_events, artificial_words
 from random import choice
-
-hard_sounds = ['t', 'd', 'p', 'c']
-middle_consonants = ['r', 'l', 'n', 'm']
-begin_consonants = ['t', 'd', 'p', 'sh', 'th', 'b', 'g', 'f', 'c', 'w', 'y', 'v', 'ch', 'st', 'str', 'tr', 'pl', 'br', 'pr', 'fr', 'gr', 'dr', 'sp']
-vowels = ['a', 'a', 'a', 'o', 'o', 'i', 'e', 'e', 'u']
-end_consonants = ['ss', 'rt', 'st', 'ck', 'nt', 'nd', 'ld', 'rd', 'tch', 'rm', 'rn', 'sh']
+from basic import read_file
 
 
-def generate_generic_syllable(begin):
-    c_one = None
-    if begin == True:
-        c_one = choice(middle_consonants + begin_consonants)
-    else:
-        c_one = choice(hard_sounds)
-    v = choice(vowels)
-    c_middle = choice(middle_consonants)
-    c_none = ""
-    c_two = choice([c_middle, c_middle, c_none])  # make a final c 2/3 likely
-    return c_one + v + c_two
-
-
-def generate_ending_syllable():
-    c_one = choice(hard_sounds)
-    v = choice(vowels)
-    c_two = choice(end_consonants)
-    return c_one + v + c_two
-
-
-def generate_language(words):
+def generate_language(words, pseudowords):
     dictionary = {}
     for subset in words:
         for word in subset:
             if dictionary.get(word) == None:
-                dictionary[word] = generate_random_word()
+                pseudoword = choice(pseudowords)
+                pseudowords.remove(pseudoword)
+                dictionary[word] = pseudoword
     return reassemble_language(words, dictionary)
 
 
@@ -50,24 +26,11 @@ def reassemble_language(words, dictionary):
     return True
 
 
-def generate_random_word():
-    length = 2
-    word = ""
-    if length == 1:
-        word = generate_ending_syllable()
-    if length == 2:
-        word = generate_generic_syllable(begin=True)
-        word += generate_ending_syllable()
-    if length == 3:
-        word = generate_generic_syllable(begin=True)
-        word += generate_generic_syllable(begin=False)
-        word += generate_ending_syllable()
-    print word
-    return word
-
 if __name__ == "__main__":
+    pseudowords = [item[:-1] for item in open(artificial_words).readlines()]
     words = read_file(events)
-    if generate_language(words) == True:
+    if generate_language(words, pseudowords) == True:
         print "Successfully wrote new language."
+        print open(artificial_events).read()
     else:
         print "Error in writing new language."
