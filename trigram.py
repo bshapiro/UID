@@ -48,7 +48,7 @@ class TrigramModel:
         context = context[index - 2:index + 1]
         trigram = ' '.join(context)
         bigram = ' '.join(context[0:2])
-        prob = float(self.trigram_counts[trigram]) / float(self.bigram_counts[bigram])
+        prob = (float(self.trigram_counts[trigram]) + 1) / (float(self.bigram_counts[bigram]) + len(self.bigram_counts.keys()))
         return prob
 
     def log_prob(self, word, context):

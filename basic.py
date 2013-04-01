@@ -1,5 +1,8 @@
 from trigram import TrigramModel
 from config import events
+import random
+from copy import deepcopy
+import pdb
 
 
 def generate_order_list(order, words):
@@ -40,9 +43,18 @@ def generate_order_list(order, words):
     return order_list
 
 
-def generate_ngram(order, words):
+def generate_ngram(order, words, subset_of_20=False):
     order_list = generate_order_list(order, words)
-    language = assemble_language(order_list)
+    if subset_of_20:
+        order_list_2 = deepcopy(order_list)
+        population = range(0, 40)
+        indices = random.sample(population, 20)
+
+        for group in order_list:
+            order_list_2[order_list.index(group)] = [group[i] for i in indices]
+        language = assemble_language(order_list_2)
+    else:
+        language = assemble_language(order_list)
     return TrigramModel(language), order_list
 
 
@@ -74,11 +86,11 @@ def estimate_language_idu(ngram, words):
         distances = [abs(word_entropy - avg_entropy) for word_entropy in word_entropies]
         avg_distance = average(distances)
         if avg_distance != 0:
-            sentence_idu = 1 / avg_distance
+            sentence_idu = -1.0 * avg_distance
         else:
             sentence_idu = 9999999999
         sentence_idus.append(sentence_idu)
-    language_idu = average(sentence_idus)
+    language_idu = 1000 * float(average(sentence_idus))
     return language_idu
 
 
@@ -127,4 +139,4 @@ if __name__ == "__main__":
     for order in orders:
         ngram, language = generate_ngram(order, words)
         language_idu = estimate_language_idu(ngram, language)
-        print order, " IDU rating:", str(language_idu)
+        print order.upper(), ": ", str(language_idu)

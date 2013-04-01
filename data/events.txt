@@ -15,10 +15,34 @@ woman,throw,blue,ball
 
 chimp,kick,guitar
 robot,kick,blue,ball
-woman,kick,large,rock
+woman,kick,large,rock:
 chimp,kick,green,ball
 
 horse,eat,red,apple
 man,eat,green,apple
 woman,eat,small,hamburger
 chimp,eat,large,hamburger
+
+horse,eat,red,flower
+horse,eat,green,flower
+horse,eat,blue,flower
+chimp,eat,red,flower
+chimp,eat,green,flower
+
+robot,see,small,rock
+robot,see,large,rock
+robot,see,large,hamburger
+robot,see,green,apple
+robot,see,red,guitar
+robot,see,woman
+robot,see,man
+chimp,see,blue,robot
+chimp,see,green,robot
+robot,see,red,robot
+
+woman,throw,small,rock
+chimp,throw,blue,guitar
+
+chimp,kick,small,hamburger
+chimp,kick,blue,guitar
+horse,kick,small,rock
