@@ -1,105 +1,5 @@
-from trigram import TrigramModel
-from config import events
-import random
-from copy import deepcopy
-import pdb
-
-
-def generate_order_list(order, words):
-    periods = ['.' for word in words[0]]
-    subjects = words[0]
-    verbs = words[1]
-    adjectives = words[2]
-    objects = words[3]
-
-    if order == "svao":
-        order_list = [subjects, verbs, adjectives, objects]
-    elif order == "svoa":
-        order_list = [subjects, verbs, objects, adjectives]
-    elif order == "saov":
-        order_list = [subjects, adjectives, objects, verbs]
-    elif order == "soav":
-        order_list = [subjects, objects, adjectives, verbs]
-    elif order == "aosv":
-        order_list = [adjectives, objects, subjects, verbs]
-    elif order == "oasv":
-        order_list = [objects, adjectives, subjects, verbs]
-    elif order == "aovs":
-        order_list = [adjectives, objects, verbs, subjects]
-    elif order == "oavs":
-        order_list = [objects, adjectives, verbs, subjects]
-    elif order == "vsao":
-        order_list = [verbs, subjects, adjectives, objects]
-    elif order == "vsoa":
-        order_list = [verbs, subjects, objects, adjectives]
-    elif order == "vaos":
-        order_list = [verbs, adjectives, objects, subjects]
-    elif order == "voas":
-        order_list = [verbs, objects, adjectives, subjects]
-
-    order_list.insert(0, periods)
-    order_list.insert(0, periods)
-
-    return order_list
-
-
-def generate_ngram(order, words, subset_of_20=False):
-    order_list = generate_order_list(order, words)
-    if subset_of_20:
-        order_list_2 = deepcopy(order_list)
-        population = range(0, 40)
-        indices = random.sample(population, 20)
-
-        for group in order_list:
-            order_list_2[order_list.index(group)] = [group[i] for i in indices]
-        language = assemble_language(order_list_2)
-    else:
-        language = assemble_language(order_list)
-    return TrigramModel(language), order_list
-
-
-def assemble_language(order_list):
-    language = []
-    for i in range(0, len(order_list[0])):
-        for j in range(0, len(order_list)):
-            word = order_list[j][i]
-            if word != "":
-                language.append(order_list[j][i])
-    return language
-
-
-def estimate_language_idu(ngram, words):
-    sentence_idus = []
-    for i in range(0, len(words[0])):
-        sentence_list = [collection[i] for collection in words if collection[i] != ""]
-        word_entropies = []
-
-        for word in sentence_list:
-            if word == '.':
-                continue
-            prob = ngram.prob(word, sentence_list)
-            log_prob = ngram.log_prob(word, sentence_list)
-            entropy = prob * log_prob
-            word_entropies.append(entropy)
-
-        avg_entropy = average(word_entropies)
-        distances = [abs(word_entropy - avg_entropy) for word_entropy in word_entropies]
-        avg_distance = average(distances)
-        if avg_distance != 0:
-            sentence_idu = -1.0 * avg_distance
-        else:
-            sentence_idu = 9999999999
-        sentence_idus.append(sentence_idu)
-    language_idu = 1000 * float(average(sentence_idus))
-    return language_idu
-
-
-def average(items):
-    sum_items = 0
-    for item in items:
-        sum_items += item
-    average = float(sum_items) / float(len(items))
-    return average
+from config import artificial_events
+from uid import generate_ngram, estimate_language_idu
 
 
 def read_file(filename):
@@ -133,7 +33,7 @@ def read_file(filename):
     return words
 
 if __name__ == "__main__":
-    words = read_file(events)
+    words = read_file(artificial_events)
     orders = ["svao", "svoa", "vsao", "vsoa", "aovs", "oavs", "saov", "soav", "voas", "vaos", "aosv", "oasv"]
 
     for order in orders:
