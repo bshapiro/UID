@@ -11,5 +11,3 @@ trigram.py: contains the implementation of the trigram used for calculating the 
 generate_language.py and generate_words.py each contain methods for generating an artificial language based on a set of events (contained in data/events.txt). Generate_words simply uses a cvc paradigm to convert english words to artificial pseudowords and generate_language uses the mapping provided by generate_words to spit out the entire language rewritten. 
  
 PLEASE DO NOT USE ANY OF THE RESOURCES IN THIS REPOSITORY WITHOUT EXPRESS PERMISSION FROM THE AUTHOR. 
-
-For questions or comments, email benj at berkeley dot edu.
