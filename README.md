@@ -12,4 +12,4 @@ generate_language.py and generate_words.py each contain methods for generating a
  
 PLEASE DO NOT USE ANY OF THE RESOURCES IN THIS REPOSITORY WITHOUT EXPRESS PERMISSION FROM THE AUTHOR. 
 
-For questions or comments, email benj@berkeley.edu.
+For questions or comments, email benj at berkeley dot edu.
