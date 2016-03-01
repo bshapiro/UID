@@ -1,4 +1,4 @@
-This repository contains the modeling code for ongoing research in computational cognitive linguistics regarding the hypothesis of Uniform Information Density theory and its impact on the evolution of an artificial language. 
+This repository contains the modeling code for previous research at UC Berkeley in computational cognitive linguistics, regarding the hypothesis of Uniform Information Density theory and its impact on the evolution of an artificial language. 
 
 uid.py: contains functions for instantiating an ngram, a word order, and then calculating the IDU (information density uniformity) of that word order given the language specified in data/events_artificial.txt.
 
